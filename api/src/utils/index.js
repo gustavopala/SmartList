@@ -1,4 +1,4 @@
-const {Genre} = require('../db');
+/* const {Genre} = require('../db');
 const axios = require('axios');
 require('dotenv').config();
 const {URLGENRE, APIKEY} = process.env;
@@ -70,4 +70,4 @@ const genreClean = (arr) =>
    
  })
 
-module.exports = {getGenres,infoClean,genreClean,infoDetailClean,dbClean,infoDetailCleanDb};
+module.exports = {getGenres,infoClean,genreClean,infoDetailClean,dbClean,infoDetailCleanDb}; */
