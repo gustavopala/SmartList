@@ -5,11 +5,13 @@ const getVideoGames = require('../controllers/getVideoGames')
 const getGenres = require('../controllers/getGenres')
 const filterGenre = require('../controllers/filterGenre')
 const deleteGames = require('../controllers/deleteGames') */
+const addIngredients = require('../controllers/addIngredients')
 
 // Importar todos los routers;
 // Ejemplo: const authRouter = require('./auth.js');
 const router = Router();
 
+router.post('/addingredients', addIngredients)
 /* router.get('/videogames/:id', getVideoGame);
 router.get('/videogames', getVideoGames);
 router.post('/videogames', addVideoGame);

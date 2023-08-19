@@ -11,8 +11,8 @@ module.exports = (Sequelize) => {
         type: DataTypes.STRING,
         allowNull: false
       },
-      nutrition_info: {
-        type: DataTypes.JSONB // Puedes usar JSONB para estructura de objetos
+      ingredient_description: {
+        type: DataTypes.TEXT 
       },
       category: {
         type: DataTypes.STRING
