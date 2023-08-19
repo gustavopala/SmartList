@@ -1,8 +1,11 @@
+const axios = require('axios');
 const { Ingredient } = require('../db');
 
 const addIngredients = async (req, res) => {
     try {
-        const ingredientsFromAPI = req.body; // Array de objetos de ingredientes desde la API
+        // Hacer la solicitud a la API externa para obtener los ingredientes
+        const response = await axios.get('https://www.themealdb.com/api/json/v1/1/list.php?i=list');
+        const ingredientsFromAPI = response.data.meals;
 
         // Mapear los datos de la API al formato esperado por el modelo Ingredient
         const mappedIngredients = ingredientsFromAPI.map(apiIngredient => ({

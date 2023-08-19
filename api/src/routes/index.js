@@ -11,7 +11,7 @@ const addIngredients = require('../controllers/addIngredients')
 // Ejemplo: const authRouter = require('./auth.js');
 const router = Router();
 
-router.post('/addingredients', addIngredients)
+router.get('/addingredients', addIngredients)
 /* router.get('/videogames/:id', getVideoGame);
 router.get('/videogames', getVideoGames);
 router.post('/videogames', addVideoGame);
