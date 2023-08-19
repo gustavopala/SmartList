@@ -19,13 +19,13 @@
 //     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 const server = require('./src/app.js');
 const { conn } = require('./src/db.js');
-const {getGenres} = require('./src/utils/index.js');
-const { Genre } = require('./src/db.js');
+/* const {getGenres} = require('./src/utils/index.js');
+const { Genre } = require('./src/db.js'); */
 // Syncing all the models at once.
 conn.sync({ force: false,  alter: true  }).then(() => {
   server.listen(3001, async() => {
-    const genres = await Genre.findAll();
-    (genres.length === 0) && (getGenres())
+    /* const genres = await Genre.findAll();
+    (genres.length === 0) && (getGenres()) */
     console.log('%s listening at 3001'); // eslint-disable-line no-console
   });
   
