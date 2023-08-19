@@ -12,7 +12,7 @@ module.exports = (Sequelize) => {
         allowNull: false
       },
       ingredient_description: {
-        type: DataTypes.TEXT 
+        type: DataTypes.TEXT
       },
       category: {
         type: DataTypes.STRING
