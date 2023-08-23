@@ -14,6 +14,10 @@ module.exports = (sequelize) => {
         },
         unit: {
           type: DataTypes.STRING
+        },
+        complete: {
+          type: DataTypes.BOOLEAN,
+          defaultValue: false
         }
       });
 }

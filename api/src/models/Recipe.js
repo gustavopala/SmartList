@@ -1,7 +1,7 @@
-const { DataTypes } = require('sequelize')
+const { DataTypes } = require('sequelize');
 
-module.exports = (Sequelize) => {
-  Sequelize.define('Recipe', {
+module.exports = (sequelize) => {
+  sequelize.define('Recipe', {
     recipe_id: {
       type: DataTypes.INTEGER,
       primaryKey: true,
@@ -25,17 +25,16 @@ module.exports = (Sequelize) => {
       type: DataTypes.STRING
     },
     restrictions: {
-      type: DataTypes.STRING
+      type: DataTypes.ARRAY(DataTypes.STRING)
     },
     occasion: {
-      type: DataTypes.STRING
+      type: DataTypes.ARRAY(DataTypes.STRING)
     },
-    cooking_method:{
+    cooking_method: {
       type: DataTypes.STRING
     },
     preparation_time: {
       type: DataTypes.INTEGER
-
     },
     side_dish: {
       type: DataTypes.BOOLEAN,
@@ -48,8 +47,7 @@ module.exports = (Sequelize) => {
       type: DataTypes.INTEGER
     },
     estimated_nutrition: {
-      type: DataTypes.JSONB // Puedes usar JSONB para estructura de objetos
+      type: DataTypes.JSONB
     }
-  })
-
-}
+  });
+};
