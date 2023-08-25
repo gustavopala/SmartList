@@ -1,4 +1,4 @@
-const { User, UserSelection } = require('../db'); // Ajusta la ruta según tu estructura de archivos
+const { User, UserSelection, Recipe } = require('../db'); // Ajusta la ruta según tu estructura de archivos
 
 // Controlador para crear una nueva selección de recetas para un usuario
 const addUserSelection = async (req, res) => {
@@ -12,14 +12,24 @@ const addUserSelection = async (req, res) => {
       return res.status(404).json({ message: 'Usuario no encontrado' });
     }
 
+    // Busca los nombres de las recetas correspondientes a los IDs en la tabla Recipe
+    const recipeNames = await Recipe.findAll({
+      attributes: ['recipe_id', 'name'],
+      where: {
+        recipe_id: recipes
+      }
+    });
+
     // Crea una nueva selección de recetas y la asocia al usuario
-    console.log(userId);
     const selection = await UserSelection.create({
-        selection_name: selectionName,
-        user_id: userId, // Usa user_id en lugar de UserId
-        number_of_people: people,
-        recipes: JSON.stringify(recipes)
-      });
+      selection_name: selectionName,
+      user_id: userId,
+      number_of_people: people,
+      recipes: recipes
+    });
+
+    // Asocia los nombres de las recetas a la selección creada
+    await selection.setRecipes(recipeNames);
 
     return res.status(201).json({ message: 'Selección creada exitosamente', selection });
   } catch (error) {
@@ -29,3 +39,4 @@ const addUserSelection = async (req, res) => {
 }
 
 module.exports = addUserSelection;
+

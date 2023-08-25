@@ -7,6 +7,13 @@ const getIngredientsForRecipes = require('../controllers/getIngredientsForRecipe
 const addUser = require('../controllers/addUser');
 const addUserSelection = require('../controllers/addUserSelection');
 const generateList = require('../controllers/generateList');
+const getShoppingListItemsByListId = require('../controllers/getShoppingListItemsByListId');
+const deleteRecipeInSelection = require('../controllers/deleteRecipeInSelection');
+const addRecipeInSelection = require('../controllers/addRecipeInSelection');
+const getUserSelection = require('../controllers/getUserSelection');
+const deleteUserSelection = require('../controllers/deleteUserSelection');
+const deleteListShop = require('../controllers/deleteListShop');
+const getListForUser = require('../controllers/getListForUser');
 
 const router = Router();
 
@@ -17,4 +24,12 @@ router.get('/ingredients/search', searchIngredientsByName);
 router.get('/recipes/:recipeId/ingredients', getIngredientsForRecipes);
 router.post('/adduserselection', addUserSelection)
 router.post('/generate-shopping-list', generateList)
+router.get('/getShoppingListItemsByListId/:listId', getShoppingListItemsByListId)
+router.delete('/deleteRecipeInSelection/:selectionId/:recipeId', deleteRecipeInSelection)
+router.put('/addRecipeInSelection', addRecipeInSelection)
+router.get('/getUserSelection/:userId', getUserSelection)
+router.delete('/deleteUserSelection/:selectionId', deleteUserSelection)
+router.delete('/deleteListShop/:listId', deleteListShop)
+router.get('/getListForUser/:userId', getListForUser)
+
 module.exports = router;

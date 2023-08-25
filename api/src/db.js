@@ -38,6 +38,8 @@ Recipe_ingredient.belongsTo(Ingredient, { foreignKey: 'ingredient_id' });
 
 User.hasMany(UserSelection, { foreignKey: 'user_id' });
 UserSelection.belongsTo(User, { foreignKey: 'user_id' });
+UserSelection.belongsToMany(Recipe, { through: 'UserSelectionRecipe', foreignKey: 'user_selection_id' });
+Recipe.belongsToMany(UserSelection, { through: 'UserSelectionRecipe', foreignKey: 'recipe_id' });
 
 ShoppingListItem.belongsTo(ShoppingList, { foreignKey: 'list_id' });
 ShoppingListItem.belongsTo(Ingredient, { foreignKey: 'ingredient_id' });

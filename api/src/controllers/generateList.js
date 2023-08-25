@@ -1,7 +1,7 @@
 const { UserSelection, Recipe, Recipe_ingredient, Ingredient, ShoppingListItem, ShoppingList, User } = require('../db'); // Ajusta la ruta según tu estructura de archivos
 
 const generateList = async (req, res) => {
-  const {userId,selectionId, listType} = req.body;
+  const { userId, selectionId, listType } = req.body;
 
 
   try {
@@ -35,20 +35,26 @@ const generateList = async (req, res) => {
     });
 
     // Calcular cantidades de ingredientes y generar la lista de compra
-    const shoppingListItems = [];
+    const numberOfPeople = userSelection.number_of_people; // Obtén el número de personas
+    const shoppingListItems = {}; // Usar un objeto para realizar un seguimiento de los ingredientes y cantidades
 
     recipes.forEach(recipe => {
       recipe.Ingredients.forEach(ingredient => {
-        const existingItemIndex = shoppingListItems.findIndex(item => item.ingredient_id === ingredient.ingredient_id);
-        if (existingItemIndex !== -1) {
-          shoppingListItems[existingItemIndex].quantity += ingredient.Recipe_ingredient.quantity;
+        const ingredientId = ingredient.ingredient_id;
+
+        // Calcular la cantidad ajustada por persona
+        const cantidadPorPersona = ingredient.Recipe_ingredient.quantity / 4;
+        const cantidadAjustada = cantidadPorPersona * numberOfPeople;
+
+        if (shoppingListItems.hasOwnProperty(ingredientId)) {
+          shoppingListItems[ingredientId].quantity += cantidadAjustada;
         } else {
-          shoppingListItems.push({
-            ingredient_id: ingredient.ingredient_id,
+          shoppingListItems[ingredientId] = {
+            ingredient_id: ingredientId,
             name: ingredient.name,
-            quantity: ingredient.Recipe_ingredient.quantity,
+            quantity: cantidadAjustada,
             unit: ingredient.Recipe_ingredient.unit
-          });
+          };
         }
       });
     });
@@ -57,12 +63,17 @@ const generateList = async (req, res) => {
     const shoppingList = await ShoppingList.create({ user_id: userId, list_type: listType });
 
     // Agregar elementos a la lista de compra
-    for (const item of shoppingListItems) {
-      await ShoppingListItem.create({
-        list_id: shoppingList.list_id,
-        ingredient_id: item.ingredient_id,
-        quantity: item.quantity
-      });
+    for (const ingredientId in shoppingListItems) {
+      if (shoppingListItems.hasOwnProperty(ingredientId)) {
+        const item = shoppingListItems[ingredientId];
+    
+        await ShoppingListItem.create({
+          list_id: shoppingList.list_id,
+          ingredient_id: item.ingredient_id,
+          quantity: item.quantity,
+          unit: item.unit
+        });
+      }
     }
 
     return res.status(200).json({ shoppingListItems });

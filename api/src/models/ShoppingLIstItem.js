@@ -13,7 +13,8 @@ module.exports = (sequelize) => {
           allowNull: false
         },
         unit: {
-          type: DataTypes.STRING
+          type: DataTypes.STRING,
+          allowNull: false
         },
         complete: {
           type: DataTypes.BOOLEAN,

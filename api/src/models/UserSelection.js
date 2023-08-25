@@ -16,7 +16,7 @@ module.exports = (sequelize) => {
       allowNull: false
     },
     recipes: {
-      type: DataTypes.JSON, // Utilizamos JSON para almacenar los IDs de las recetas
+      type: DataTypes.ARRAY(DataTypes.INTEGER), // Utilizamos JSON para almacenar los IDs de las recetas
       allowNull: false
     }
   }
