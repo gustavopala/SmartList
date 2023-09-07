@@ -48,6 +48,9 @@ module.exports = (sequelize) => {
     },
     estimated_nutrition: {
       type: DataTypes.JSONB
+    },
+    photo_portada: {
+      type: DataTypes.STRING
     }
   });
 };
